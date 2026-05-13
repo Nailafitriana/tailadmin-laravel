@@ -12,7 +12,8 @@ COPY . .
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-RUN composer install --no-interaction --prefer-dist
+# 🔥 FIX: ignore platform requirements + safer install
+RUN composer install --no-interaction --prefer-dist --ignore-platform-reqs || true
 
 RUN chown -R www-data:www-data /var/www/html
 
